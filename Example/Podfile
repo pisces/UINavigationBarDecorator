@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'UINavigationBarDecorator_Example' do
+  pod 'UINavigationBarDecorator', :path => '../'
+
+  target 'UINavigationBarDecorator_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
