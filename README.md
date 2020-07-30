@@ -9,13 +9,24 @@
 Compatible UINavigationBarAppearance for all ios versions
 
 ## Features
+- Easy to apply navigation bar style for all ios versions
 - Apply navigation bar style as one interface for all ios versions
 - Provide compatible UINavigationBarAppearance for versions below ios 13
+- Provide CompatibleNavigationBarAppearance like UINavigationBarAppearance that is available on ios 13 higher
 - Automatically apply appearance to navigation bar through the view controller life cycle
 
-## Example
-![](Images/ScreenShot01.png)
-![](Images/ScreenShot02.png)
+## Demo
+### Normal title
+<p valign="top">
+<img src="Images/ScreenShot01.png" width="400"/>
+<img src="Images/ScreenShot02.png" width="400"/>
+</p>
+
+### Large title
+<p valign="top">
+<img src="Images/ScreenShot03.png" width="400"/>
+<img src="Images/ScreenShot04.png" width="400"/>
+</p>
 
 ### Configure UINavigationBarDecorator
 ```swift
@@ -23,6 +34,7 @@ import UINavigationBarDecorator
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // If true, navigation bar will decorate automacally it according to life cycle of view controller
         UINavigationBarDecorator.isAllowsSwizzleLifeCycleOfViewController = true
         
         // set if you have factory that implemented UINavigationBarDecoratorFactory
@@ -89,6 +101,42 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         
         navigationBarDecorator = .init(standard: .orange, compact: .orange, scrollEdge: .orange)
+    }
+}
+```
+
+### Apply decorator manually
+```swift
+import UINavigationBarDecorator
+
+// AppDelegate.swift
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        UINavigationBarDecorator.isAllowsSwizzleLifeCycleOfViewController = false
+        UINavigationBarDecorator.factory = SampleNavigationBarDecoratorFactory()
+        return true
+    }
+}
+
+// SampleNavigationController.swift
+final class SampleNavigationController: UINavigationController {
+    override var childForStatusBarStyle: UIViewController? {
+        return topViewController
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        delegate = self
+    }
+}
+
+extension SampleNavigationController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        viewController.navigationBarDecorator?.decorate(to: viewController)
+    }
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        viewController.navigationBarDecorator?.decorate(to: viewController, by: viewController.view.frame.size)
     }
 }
 ```
