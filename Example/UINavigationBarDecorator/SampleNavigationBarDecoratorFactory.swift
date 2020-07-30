@@ -14,9 +14,9 @@ struct SampleNavigationBarDecoratorFactory: UINavigationBarDecoratorFactory {
     func create(of vc: UIViewController) -> UINavigationBarDecorator? {
         switch vc {
         case is RootViewController:
-            return .init(standard: .white)
+            return .init(standard: .orange, scrollEdge: .orange)
         case is SecondViewController:
-            return .init(standard: .black)
+            return .init(standard: .purple, scrollEdge: .purple)
         default:
             return nil
         }
@@ -24,22 +24,29 @@ struct SampleNavigationBarDecoratorFactory: UINavigationBarDecoratorFactory {
 }
 
 private extension CompatibleNavigationBarAppearance {
-    static var black: CompatibleNavigationBarAppearance {
+    static var purple: CompatibleNavigationBarAppearance {
         let appearance = CompatibleNavigationBarAppearance()
-        appearance.backgroundColor = .black
+        appearance.backgroundColor = .purple
         appearance.tintColor = .white
+        appearance.largeTitleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
         appearance.titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .semibold)
+            .foregroundColor: UIColor.white,
+            .font : UIFont.systemFont(ofSize: 17, weight: .semibold)
         ]
         return appearance
     }
-    static var white: CompatibleNavigationBarAppearance {
+    static var orange: CompatibleNavigationBarAppearance {
         let appearance = CompatibleNavigationBarAppearance()
+        appearance.backgroundColor = .orange
         appearance.tintColor = .black
+        appearance.largeTitleTextAttributes = [
+            .foregroundColor: UIColor.black
+        ]
         appearance.titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.black,
-            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .semibold)
+            .foregroundColor: UIColor.black,
+            .font : UIFont.systemFont(ofSize: 17, weight: .semibold)
         ]
         return appearance
     }

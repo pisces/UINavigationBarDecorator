@@ -40,10 +40,15 @@ public final class UINavigationBarDecorator {
     
     // MARK: - Public Properties
     
-    public static var isApplyWhenViewWillAppear = false {
+    /**
+     * if true, navigation bar will decorate  by life cycle of view controller
+     * @default value is false
+     */
+    public static var isAllowsSwizzleLifeCycleOfViewController = false {
         didSet {
-            if isApplyWhenViewWillAppear {
+            if isAllowsSwizzleLifeCycleOfViewController {
                 UIViewController.swizzleViewWillAppear()
+                UIViewController.swizzleViewDidAppear()
             }
             UINavigationController.swizzleViewWillTransition()
         }
@@ -56,13 +61,15 @@ public final class UINavigationBarDecorator {
     private let compact: CompatibleNavigationBarAppearance?
     private let scrollEdge: CompatibleNavigationBarAppearance?
     
-    // MARK: - Constructor
+    // MARK: - Constructors
     
     public init(standard: CompatibleNavigationBarAppearance, compact: CompatibleNavigationBarAppearance? = nil, scrollEdge: CompatibleNavigationBarAppearance? = nil) {
         self.standard = standard
         self.compact = compact
         self.scrollEdge = scrollEdge
     }
+    
+    // MARK: - Public Methods
     
     public func decorate(to target: UIViewController) {
         target.navigationController.map {
@@ -76,17 +83,27 @@ public final class UINavigationBarDecorator {
                 (compact ?? standard).apply(to: $0.navigationBar, for: .compact)
                 (compact ?? standard).apply(to: $0.navigationBar, for: .compactPrompt)
             }
-            decorateTransition(to: target.view.bounds.size, target: target)
+            decorate(to: target, by: target.view.bounds.size)
         }
     }
-    public func decorateTransition(to size: CGSize, target: UIViewController) {
+    public func decorate(to target: UIViewController, by size: CGSize) {
         target.navigationController.map {
-            let current = (size.width > size.height ? compact : standard) ?? standard
+            let current = currentAppearance(of: size, navigationBar: $0.navigationBar) ?? standard
             $0.isNavigationBarHidden = current.isHidden
-            $0.navigationBar.barStyle = current.barStyle
-            $0.navigationBar.tintColor = current.tintColor
             current.apply(to: $0.navigationBar)
         }
+    }
+    
+    // MARK: - Private Methods
+    
+    private func currentAppearance(of size: CGSize, navigationBar: UINavigationBar) -> CompatibleNavigationBarAppearance? {
+        guard size.width > size.height else {
+            if #available(iOS 11.0, *) {
+                return navigationBar.prefersLargeTitles ? scrollEdge : standard
+            }
+            return standard
+        }
+        return compact
     }
 }
 
@@ -109,13 +126,36 @@ private func swizzle(from: SwizzleObject, to: SwizzleObject) {
 private extension UIViewController {
     static func swizzleViewWillAppear() {
         swizzle(
-            from: .init(class: UIViewController.self, selector: #selector(viewWillAppear(_:))),
+            from: .init(class: UIViewController.self, selector: #selector(viewWillAppear)),
             to: .init(class: UIViewController.self, selector: #selector(swizzled_viewWillAppear(_:)))
         )
     }
+    static func swizzleViewDidAppear() {
+        swizzle(
+            from: .init(class: UIViewController.self, selector: #selector(viewDidAppear(_:))),
+            to: .init(class: UIViewController.self, selector: #selector(swizzled_viewDidAppear))
+        )
+    }
+    
+    func isDecoratable(_ target: UIViewController) -> Bool {
+        switch NSStringFromClass(type(of: target)) {
+        case "UINavigationController",
+             "UIInputWindowController":
+            return false
+        default:
+            return true
+        }
+    }
     
     @objc private func swizzled_viewWillAppear(_ animated: Bool) {
-        navigationBarDecorator?.decorate(to: self)
+        if isDecoratable(self) {
+            navigationBarDecorator?.decorate(to: self)
+        }
+    }
+    @objc private func swizzled_viewDidAppear(_ animated: Bool) {
+        if isDecoratable(self) {
+            navigationBarDecorator?.decorate(to: self, by: view.frame.size)
+        }
     }
 }
 
@@ -129,7 +169,7 @@ private extension UINavigationController {
     
     @objc private func swizzled_viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         visibleViewController.map {
-            $0.navigationBarDecorator?.decorateTransition(to: size, target: $0)
+            navigationBarDecorator?.decorate(to: $0, by: size)
         }
     }
 }

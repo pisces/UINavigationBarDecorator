@@ -47,18 +47,22 @@ open class CompatibleNavigationBarAppearance {
     
     open var isHidden = false
     open var backgroundImageContentMode: UIView.ContentMode = .scaleToFill
-    open var barStyle: UIBarStyle = .default
     open var titlePositionAdjustment: UIOffset = .zero
     open var tintColor: UIColor = .systemBlue
     open var backgroundImage: UIImage?
     open var shadowImage: UIImage?
-    open var largeTitleTextAttributes: [NSAttributedString.Key: Any] = [:]
-    open var titleTextAttributes: [NSAttributedString.Key: Any] = [:]
+    open var largeTitleTextAttributes: [NSAttributedString.Key: Any]?
+    open var titleTextAttributes: [NSAttributedString.Key: Any]?
+    
+    open private(set) var backIndicatorImage: UIImage!
+    open private(set) var backIndicatorTransitionMaskImage: UIImage!
     
     @NSCopying open var backgroundColor: UIColor?
     @NSCopying open var shadowColor: UIColor?
     @NSCopying open var backgroundEffect: UIBlurEffect?
     
+    // MARK: - Private Properties
+
     private var backgroundMode: BackgroundMode = .none
     
     // MARK: - Constructors
@@ -76,35 +80,48 @@ open class CompatibleNavigationBarAppearance {
     open func configureWithTransparentBackground() {
         backgroundMode = .transparent
     }
+    open func setBackIndicatorImage(_ backIndicatorImage: UIImage?, transitionMaskImage backIndicatorTransitionMaskImage: UIImage?) {
+        if let backIndicatorImage = backIndicatorImage {
+            self.backIndicatorImage = backIndicatorImage
+        }
+        if let backIndicatorTransitionMaskImage = backIndicatorTransitionMaskImage {
+            self.backIndicatorTransitionMaskImage = backIndicatorTransitionMaskImage
+        }
+    }
     
     // MARK: - Internal Methods
     
     func apply(to navigationBar: UINavigationBar) {
+        navigationBar.tintColor = tintColor
+        
         if #available(iOS 13.0, *) {
-        } else {
-            switch backgroundMode {
-            case .default, .none:
-                navigationBar.isTranslucent = true
-                navigationBar.backgroundView?.alpha = 1
-            case .opaque:
-                navigationBar.isTranslucent = false
-                navigationBar.backgroundView?.alpha = 1
-            case .transparent:
-                navigationBar.isTranslucent = true
-                navigationBar.backgroundView?.alpha = 0
-            }
-
-            if let shadowImage = shadowImage {
-                navigationBar.shadowImage = shadowImage
-            } else if let shadowColor = shadowColor {
-                navigationBar.shadowImage = .image(backgroundColor: shadowColor)
-            }
-            
-            if #available(iOS 11.0, *) {
-                navigationBar.largeTitleTextAttributes = largeTitleTextAttributes
-            }
-            navigationBar.titleTextAttributes = titleTextAttributes
+            return
         }
+
+        navigationBar.barTintColor = backgroundColor
+        
+        switch backgroundMode {
+        case .default, .none:
+            navigationBar.isTranslucent = true
+            navigationBar.backgroundView?.alpha = 1
+        case .opaque:
+            navigationBar.isTranslucent = false
+            navigationBar.backgroundView?.alpha = 1
+        case .transparent:
+            navigationBar.isTranslucent = true
+            navigationBar.backgroundView?.alpha = 0
+        }
+
+        if let shadowImage = shadowImage {
+            navigationBar.shadowImage = shadowImage
+        } else if let shadowColor = shadowColor {
+            navigationBar.shadowImage = .image(backgroundColor: shadowColor)
+        }
+        
+        if #available(iOS 11.0, *) {
+            navigationBar.largeTitleTextAttributes = largeTitleTextAttributes
+        }
+        navigationBar.titleTextAttributes = titleTextAttributes
     }
     func apply(to navigationBar: UINavigationBar, for barMetrics: UIBarMetrics) {
         if let backgroundImage = backgroundImage {
@@ -117,8 +134,6 @@ open class CompatibleNavigationBarAppearance {
                 imageView.contentMode = backgroundImageContentMode
                 navigationBar.setBackgroundImage(imageView.captured(), for: barMetrics)
             }
-        } else if let backgroundColor = backgroundColor {
-            navigationBar.setBackgroundImage(.image(backgroundColor: backgroundColor), for: barMetrics)
         }
 
         navigationBar.setTitleVerticalPositionAdjustment(titlePositionAdjustment.vertical, for: barMetrics)
@@ -130,9 +145,11 @@ open class CompatibleNavigationBarAppearance {
         appearance.backgroundColor = backgroundColor
         appearance.shadowColor = shadowColor
         appearance.backgroundImage = backgroundImage
-        appearance.largeTitleTextAttributes = largeTitleTextAttributes
-        appearance.titleTextAttributes = titleTextAttributes
+        appearance.largeTitleTextAttributes = largeTitleTextAttributes ?? [:]
+        appearance.titleTextAttributes = titleTextAttributes ?? [:]
         appearance.titlePositionAdjustment = titlePositionAdjustment
+        
+        appearance.setBackIndicatorImage(backIndicatorImage, transitionMaskImage: backIndicatorTransitionMaskImage)
         
         switch backgroundMode {
         case .default:

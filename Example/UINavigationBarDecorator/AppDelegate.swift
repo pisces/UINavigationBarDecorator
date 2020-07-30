@@ -13,8 +13,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        UINavigationBarDecorator.isApplyWhenViewWillAppear = true
-        UINavigationBarDecorator.factory = SampleNavigationBarDecoratorFactory()
         return true
     }
 }
