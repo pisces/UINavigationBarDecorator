@@ -1,0 +1,18 @@
+language: swift
+osx_image: xcode10.3
+script: set -o pipefail && xcodebuild -project UINavigationBarDecorator.xcodeproj -scheme UINavigationBarDecorator -sdk iphonesimulator | xcpretty
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
