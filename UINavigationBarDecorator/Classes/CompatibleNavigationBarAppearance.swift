@@ -99,6 +99,8 @@ open class CompatibleNavigationBarAppearance {
         }
 
         navigationBar.barTintColor = backgroundColor
+        navigationBar.backIndicatorImage = backIndicatorImage
+        navigationBar.backIndicatorTransitionMaskImage = backIndicatorTransitionMaskImage
         
         switch backgroundMode {
         case .default, .none:
@@ -148,7 +150,6 @@ open class CompatibleNavigationBarAppearance {
         appearance.largeTitleTextAttributes = largeTitleTextAttributes ?? [:]
         appearance.titleTextAttributes = titleTextAttributes ?? [:]
         appearance.titlePositionAdjustment = titlePositionAdjustment
-        
         appearance.setBackIndicatorImage(backIndicatorImage, transitionMaskImage: backIndicatorTransitionMaskImage)
         
         switch backgroundMode {
@@ -180,5 +181,20 @@ private extension UIImage {
         let view = UIView(frame: .init(x: 0, y: 0, width: 1, height: 1))
         view.backgroundColor = backgroundColor
         return view.captured()
+    }
+}
+
+private extension UINavigationBar {
+    var backgroundView: UIView? {
+        return subviews.first(where: {
+            switch NSStringFromClass(type(of: $0)) {
+                case "UINavigationBarBackground",
+                     "_UINavigationBarBackground",
+                     "_UIBarBackground":
+                return true
+            default:
+                return false
+            }
+        })
     }
 }

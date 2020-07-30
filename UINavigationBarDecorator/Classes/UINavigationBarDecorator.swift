@@ -41,7 +41,7 @@ public final class UINavigationBarDecorator {
     // MARK: - Public Properties
     
     /**
-     * if true, navigation bar will decorate  by life cycle of view controller
+     * If true, navigation bar will decorate automacally it according to life cycle of view controller.
      * @default value is false
      */
     public static var isAllowsSwizzleLifeCycleOfViewController = false {
@@ -50,9 +50,11 @@ public final class UINavigationBarDecorator {
                 UIViewController.swizzleViewWillAppear()
                 UIViewController.swizzleViewDidAppear()
             }
-            UINavigationController.swizzleViewWillTransition()
         }
     }
+    /**
+     * It will create navigation bar decorator of view controller if navigationBarDecorator of view controller is not setted.
+     */
     public static var factory: UINavigationBarDecoratorFactory?
     
     // MARK: - Private Constants
@@ -61,12 +63,21 @@ public final class UINavigationBarDecorator {
     private let compact: CompatibleNavigationBarAppearance?
     private let scrollEdge: CompatibleNavigationBarAppearance?
     
+    // MARK: - Private Properties
+    
+    private static var isNavigationControllerSwizzled = false
+    
     // MARK: - Constructors
     
     public init(standard: CompatibleNavigationBarAppearance, compact: CompatibleNavigationBarAppearance? = nil, scrollEdge: CompatibleNavigationBarAppearance? = nil) {
         self.standard = standard
         self.compact = compact
         self.scrollEdge = scrollEdge
+
+        if !Self.isNavigationControllerSwizzled {
+            UINavigationController.swizzleViewWillTransition()
+            Self.isNavigationControllerSwizzled = true
+        }
     }
     
     // MARK: - Public Methods
