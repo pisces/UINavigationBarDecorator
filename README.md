@@ -1,5 +1,6 @@
 # UINavigationBarDecorator
 
+![Swift](https://img.shields.io/badge/Swift-5-orange.svg)
 [![CI Status](http://img.shields.io/travis/pisces/UINavigationBarDecorator.svg?style=flat)](https://travis-ci.org/pisces/UINavigationBarDecorator)
 [![Version](https://img.shields.io/cocoapods/v/UINavigationBarDecorator.svg?style=flat)](http://cocoapods.org/pods/UINavigationBarDecorator)
 [![License](https://img.shields.io/cocoapods/l/UINavigationBarDecorator.svg?style=flat)](http://cocoapods.org/pods/UINavigationBarDecorator)
@@ -9,23 +10,29 @@
 Compatible UINavigationBarAppearance for all ios versions
 
 ## Features
-- Easy to apply navigation bar style for all ios versions
-- Apply navigation bar style as one interface for all ios versions
-- Provide compatible UINavigationBarAppearance for versions below ios 13
-- Provide CompatibleNavigationBarAppearance like UINavigationBarAppearance that is available on ios 13 higher
+- Easy to apply navigation bar style for all iOS versions
+- Apply navigation bar style as one interface for all iOS versions
+- Provide compatible UINavigationBarAppearance for versions below iOS 13
+- Provide CompatibleNavigationBarAppearance like UINavigationBarAppearance that is available on iOS 13 higher
 - Automatically apply appearance to navigation bar through the view controller life cycle
 
 ## Demo
-### Normal title
+### Normal title on iOS 10.x
 <p valign="top">
 <img src="Images/ScreenShot01.png" width="400"/>
 <img src="Images/ScreenShot02.png" width="400"/>
 </p>
 
-### Large title
+### Large title on iOS 11.x
 <p valign="top">
 <img src="Images/ScreenShot03.png" width="400"/>
 <img src="Images/ScreenShot04.png" width="400"/>
+</p>
+
+### Large title on iOS 13.x
+<p valign="top">
+<img src="Images/ScreenShot05.png" width="400"/>
+<img src="Images/ScreenShot06.png" width="400"/>
 </p>
 
 ### Configure UINavigationBarDecorator
@@ -151,7 +158,7 @@ iOS SDK 9.0 equal or higher
 
 ## Installation
 
-SimpleLayout is available through [CocoaPods](http://cocoapods.org). To install
+UINavigationBarDecorator is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
@@ -172,10 +179,10 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/UINavigationBarDecorator" ~> 0.1.0
+github "pisces/UINavigationBarDecorator" ~> 1.0.0
 ```
 
-Run `carthage update` to build the framework and drag the built `SimpleLayout.framework` into your Xcode project.
+Run `carthage update` to build the framework and drag the built `UINavigationBarDecorator.framework` into your Xcode project.
 
 ## Author
 
