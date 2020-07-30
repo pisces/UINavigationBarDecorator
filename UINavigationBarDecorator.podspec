@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.name             = 'UINavigationBarDecorator'
   s.version          = '1.0.0'
   s.summary          = 'Compatible UINavigationBarAppearance'
-  s.description      = 'Compatible UINavigationBarAppearance for all ios versions'
+  s.description      = 'Compatible UINavigationBarAppearance for all iOS versions'
   s.homepage         = 'https://github.com/pisces/UINavigationBarDecorator'
   s.license          = { :type => 'BSD', :file => 'LICENSE' }
   s.author           = { 'Steve Kim' => 'hh963103@gmail.com' }
