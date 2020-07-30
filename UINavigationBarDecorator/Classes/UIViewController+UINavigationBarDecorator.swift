@@ -30,7 +30,7 @@
 //  Created by Steve Kim on 2020/07/21.
 //
 
-import Foundation
+import UIKit
 
 extension UIViewController {
     private struct AssociatedKeys {

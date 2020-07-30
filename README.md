@@ -179,7 +179,7 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/UINavigationBarDecorator" ~> 1.0.0
+github "pisces/UINavigationBarDecorator" ~> 1.0.1
 ```
 
 Run `carthage update` to build the framework and drag the built `UINavigationBarDecorator.framework` into your Xcode project.

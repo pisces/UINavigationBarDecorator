@@ -30,7 +30,7 @@
 //  Created by Steve Kim on 2020/07/21.
 //
 
-import Foundation
+import UIKit
 
 public protocol UINavigationBarDecoratorFactory {
     func create(of vc: UIViewController) -> UINavigationBarDecorator?
