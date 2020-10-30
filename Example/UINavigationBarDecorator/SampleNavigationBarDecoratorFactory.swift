@@ -14,7 +14,7 @@ struct SampleNavigationBarDecoratorFactory: UINavigationBarDecoratorFactory {
     func create(of vc: UIViewController) -> UINavigationBarDecorator? {
         switch vc {
         case is RootViewController:
-            return .init(standard: .orange, scrollEdge: .orange)
+            return .init(standard: .transparent, scrollEdge: .transparent)
         case is SecondViewController:
             return .init(standard: .purple, scrollEdge: .purple)
         default:
@@ -48,6 +48,21 @@ private extension CompatibleNavigationBarAppearance {
             .foregroundColor: UIColor.black,
             .font : UIFont.systemFont(ofSize: 17, weight: .semibold)
         ]
+        return appearance
+    }
+    static var transparent: CompatibleNavigationBarAppearance {
+        let appearance = CompatibleNavigationBarAppearance()
+        appearance.backgroundColor = .clear
+        appearance.backgroundEffect = .none
+        appearance.tintColor = .white
+        appearance.largeTitleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+        appearance.titleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font : UIFont.systemFont(ofSize: 17, weight: .semibold)
+        ]
+        appearance.configureWithTransparentBackground()
         return appearance
     }
 }

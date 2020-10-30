@@ -94,6 +94,8 @@ open class CompatibleNavigationBarAppearance {
     func apply(to navigationBar: UINavigationBar) {
         navigationBar.tintColor = tintColor
         
+        setIsTranslucent(to: navigationBar)
+        
         if #available(iOS 13.0, *) {
             return
         }
@@ -101,18 +103,7 @@ open class CompatibleNavigationBarAppearance {
         navigationBar.barTintColor = backgroundColor
         navigationBar.backIndicatorImage = backIndicatorImage
         navigationBar.backIndicatorTransitionMaskImage = backIndicatorTransitionMaskImage
-        
-        switch backgroundMode {
-        case .default, .none:
-            navigationBar.isTranslucent = true
-            navigationBar.backgroundView?.alpha = 1
-        case .opaque:
-            navigationBar.isTranslucent = false
-            navigationBar.backgroundView?.alpha = 1
-        case .transparent:
-            navigationBar.isTranslucent = true
-            navigationBar.backgroundView?.alpha = 0
-        }
+        navigationBar.titleTextAttributes = titleTextAttributes
 
         if let shadowImage = shadowImage {
             navigationBar.shadowImage = shadowImage
@@ -123,7 +114,6 @@ open class CompatibleNavigationBarAppearance {
         if #available(iOS 11.0, *) {
             navigationBar.largeTitleTextAttributes = largeTitleTextAttributes
         }
-        navigationBar.titleTextAttributes = titleTextAttributes
     }
     func apply(to navigationBar: UINavigationBar, for barMetrics: UIBarMetrics) {
         if let backgroundImage = backgroundImage {
@@ -136,6 +126,8 @@ open class CompatibleNavigationBarAppearance {
                 imageView.contentMode = backgroundImageContentMode
                 navigationBar.setBackgroundImage(imageView.captured(), for: barMetrics)
             }
+        } else if backgroundMode == .transparent {
+            navigationBar.setBackgroundImage(.init(), for: barMetrics)
         }
 
         navigationBar.setTitleVerticalPositionAdjustment(titlePositionAdjustment.vertical, for: barMetrics)
@@ -145,13 +137,14 @@ open class CompatibleNavigationBarAppearance {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundImageContentMode = backgroundImageContentMode
         appearance.backgroundColor = backgroundColor
+        appearance.backgroundEffect = backgroundEffect
         appearance.shadowColor = shadowColor
+        appearance.shadowImage = shadowImage
         appearance.backgroundImage = backgroundImage
         appearance.largeTitleTextAttributes = largeTitleTextAttributes ?? [:]
         appearance.titleTextAttributes = titleTextAttributes ?? [:]
         appearance.titlePositionAdjustment = titlePositionAdjustment
         appearance.setBackIndicatorImage(backIndicatorImage, transitionMaskImage: backIndicatorTransitionMaskImage)
-        
         switch backgroundMode {
         case .default:
             appearance.configureWithDefaultBackground()
@@ -163,6 +156,19 @@ open class CompatibleNavigationBarAppearance {
             ()
         }
         return appearance
+    }
+    
+    // MARK: - Private Methods
+    
+    private func setIsTranslucent(to navigationBar: UINavigationBar) {
+        switch backgroundMode {
+        case .default,
+             .none,
+             .transparent:
+            navigationBar.isTranslucent = true
+        case .opaque:
+            navigationBar.isTranslucent = false
+        }
     }
 }
 
