@@ -29,7 +29,7 @@ Compatible UINavigationBarAppearance for all iOS versions
 <img src="Images/ScreenShot04.png" width="400"/>
 </p>
 
-### Large title on iOS 13.x
+### Large title on iOS 13 higher
 <p valign="top">
 <img src="Images/ScreenShot05.png" width="400"/>
 <img src="Images/ScreenShot06.png" width="400"/>
@@ -41,9 +41,6 @@ import UINavigationBarDecorator
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // If true, navigation bar will decorate automacally it according to life cycle of view controller
-        UINavigationBarDecorator.isAllowsSwizzleLifeCycleOfViewController = true
-        
         // set if you have factory that implemented UINavigationBarDecoratorFactory
         UINavigationBarDecorator.factory = SampleNavigationBarDecoratorFactory()
         return true
