@@ -13,6 +13,9 @@
 		230BF57E24D381B3005AFFCE /* UINavigationBarDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BF57B24D381B3005AFFCE /* UINavigationBarDecorator.swift */; };
 		230BF57F24D381B3005AFFCE /* CompatibleNavigationBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BF57C24D381B3005AFFCE /* CompatibleNavigationBarAppearance.swift */; };
 		230BF58024D381B3005AFFCE /* UIViewController+UINavigationBarDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BF57D24D381B3005AFFCE /* UIViewController+UINavigationBarDecorator.swift */; };
+		CEC465F32555D1F70060539E /* AdvancedNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC465F02555D1F70060539E /* AdvancedNavigationBar.swift */; };
+		CEC465F42555D1F70060539E /* PageSheetNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC465F12555D1F70060539E /* PageSheetNavigationBar.swift */; };
+		CEC465F52555D1F70060539E /* UINavigationController+CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC465F22555D1F70060539E /* UINavigationController+CustomNavigationBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,9 @@
 		230BF57B24D381B3005AFFCE /* UINavigationBarDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UINavigationBarDecorator.swift; path = Classes/UINavigationBarDecorator.swift; sourceTree = "<group>"; };
 		230BF57C24D381B3005AFFCE /* CompatibleNavigationBarAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CompatibleNavigationBarAppearance.swift; path = Classes/CompatibleNavigationBarAppearance.swift; sourceTree = "<group>"; };
 		230BF57D24D381B3005AFFCE /* UIViewController+UINavigationBarDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+UINavigationBarDecorator.swift"; path = "Classes/UIViewController+UINavigationBarDecorator.swift"; sourceTree = "<group>"; };
+		CEC465F02555D1F70060539E /* AdvancedNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AdvancedNavigationBar.swift; path = Classes/AdvancedNavigationBar.swift; sourceTree = "<group>"; };
+		CEC465F12555D1F70060539E /* PageSheetNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageSheetNavigationBar.swift; path = Classes/PageSheetNavigationBar.swift; sourceTree = "<group>"; };
+		CEC465F22555D1F70060539E /* UINavigationController+CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UINavigationController+CustomNavigationBar.swift"; path = "Classes/UINavigationController+CustomNavigationBar.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +83,14 @@
 		230BF56324D37FDE005AFFCE /* UINavigationBarDecorator */ = {
 			isa = PBXGroup;
 			children = (
+				CEC465F02555D1F70060539E /* AdvancedNavigationBar.swift */,
 				230BF57C24D381B3005AFFCE /* CompatibleNavigationBarAppearance.swift */,
-				230BF57B24D381B3005AFFCE /* UINavigationBarDecorator.swift */,
-				230BF57D24D381B3005AFFCE /* UIViewController+UINavigationBarDecorator.swift */,
-				230BF56424D37FDE005AFFCE /* UINavigationBarDecorator.h */,
 				230BF56524D37FDE005AFFCE /* Info.plist */,
+				CEC465F12555D1F70060539E /* PageSheetNavigationBar.swift */,
+				230BF56424D37FDE005AFFCE /* UINavigationBarDecorator.h */,
+				230BF57B24D381B3005AFFCE /* UINavigationBarDecorator.swift */,
+				CEC465F22555D1F70060539E /* UINavigationController+CustomNavigationBar.swift */,
+				230BF57D24D381B3005AFFCE /* UIViewController+UINavigationBarDecorator.swift */,
 			);
 			path = UINavigationBarDecorator;
 			sourceTree = "<group>";
@@ -206,8 +215,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				230BF57E24D381B3005AFFCE /* UINavigationBarDecorator.swift in Sources */,
+				CEC465F32555D1F70060539E /* AdvancedNavigationBar.swift in Sources */,
+				CEC465F52555D1F70060539E /* UINavigationController+CustomNavigationBar.swift in Sources */,
 				230BF57F24D381B3005AFFCE /* CompatibleNavigationBarAppearance.swift in Sources */,
 				230BF58024D381B3005AFFCE /* UIViewController+UINavigationBarDecorator.swift in Sources */,
+				CEC465F42555D1F70060539E /* PageSheetNavigationBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
