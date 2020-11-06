@@ -1,5 +1,5 @@
 PODS:
-  - UINavigationBarDecorator (0.1.0)
+  - UINavigationBarDecorator (1.0.3)
 
 DEPENDENCIES:
   - UINavigationBarDecorator (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  UINavigationBarDecorator: 93af468a26306c514b122d76d6efb1b0c90e3e6a
+  UINavigationBarDecorator: a67deb06462d44648042442c88c684bf89bd1ca9
 
 PODFILE CHECKSUM: e69d0e1d31440c59ccc6e4a46a16a38f45d97e83
 

@@ -14,9 +14,13 @@ struct SampleNavigationBarDecoratorFactory: UINavigationBarDecoratorFactory {
     func create(of vc: UIViewController) -> UINavigationBarDecorator? {
         switch vc {
         case is RootViewController:
-            return .init(standard: .transparent, scrollEdge: .transparent)
+            return .init(standard: .orange, scrollEdge: .orange)
         case is SecondViewController:
             return .init(standard: .purple, scrollEdge: .purple)
+        case is AdvancedNavigationBarViewController:
+            return .init(standard: .extraLight, scrollEdge: .extraLight)
+        case is PageSheetNavigationBarViewController:
+            return .init(standard: .dark, scrollEdge: .dark)
         default:
             return nil
         }
@@ -24,15 +28,22 @@ struct SampleNavigationBarDecoratorFactory: UINavigationBarDecoratorFactory {
 }
 
 private extension CompatibleNavigationBarAppearance {
-    static var purple: CompatibleNavigationBarAppearance {
+    static var dark: CompatibleNavigationBarAppearance {
         let appearance = CompatibleNavigationBarAppearance()
-        appearance.backgroundColor = .purple
+        appearance.backgroundEffect = .init(style: .dark)
         appearance.tintColor = .white
-        appearance.largeTitleTextAttributes = [
-            .foregroundColor: UIColor.white
-        ]
         appearance.titleTextAttributes = [
             .foregroundColor: UIColor.white,
+            .font : UIFont.systemFont(ofSize: 17, weight: .thin)
+        ]
+        return appearance
+    }
+    static var extraLight: CompatibleNavigationBarAppearance {
+        let appearance = CompatibleNavigationBarAppearance()
+        appearance.backgroundEffect = .init(style: .extraLight)
+        appearance.tintColor = .black
+        appearance.titleTextAttributes = [
+            .foregroundColor: UIColor.black,
             .font : UIFont.systemFont(ofSize: 17, weight: .semibold)
         ]
         return appearance
@@ -50,10 +61,9 @@ private extension CompatibleNavigationBarAppearance {
         ]
         return appearance
     }
-    static var transparent: CompatibleNavigationBarAppearance {
+    static var purple: CompatibleNavigationBarAppearance {
         let appearance = CompatibleNavigationBarAppearance()
-        appearance.backgroundColor = .clear
-        appearance.backgroundEffect = .none
+        appearance.backgroundColor = .purple
         appearance.tintColor = .white
         appearance.largeTitleTextAttributes = [
             .foregroundColor: UIColor.white
@@ -62,7 +72,6 @@ private extension CompatibleNavigationBarAppearance {
             .foregroundColor: UIColor.white,
             .font : UIFont.systemFont(ofSize: 17, weight: .semibold)
         ]
-        appearance.configureWithTransparentBackground()
         return appearance
     }
 }

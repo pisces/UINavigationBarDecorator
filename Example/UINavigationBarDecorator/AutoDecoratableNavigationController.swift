@@ -10,17 +10,15 @@ import UINavigationBarDecorator
 
 final class AutoDecoratableNavigationController: UINavigationController {
     override var childForStatusBarStyle: UIViewController? {
-        return topViewController
+        topViewController
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        UINavigationBarDecorator.isAllowsSwizzleLifeCycleOfViewController = true
-        UINavigationBarDecorator.factory = SampleNavigationBarDecoratorFactory()
-        
         if #available(iOS 11.0, *) {
             navigationBar.prefersLargeTitles = true
         }
+        UINavigationBarDecorator.isAllowsSwizzleLifeCycleOfViewController = true
+        UINavigationBarDecorator.factory = SampleNavigationBarDecoratorFactory()
     }
 }

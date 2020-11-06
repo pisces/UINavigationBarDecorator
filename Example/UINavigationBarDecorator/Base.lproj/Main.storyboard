@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wTQ-u1-zmb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wTQ-u1-zmb">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,6 +25,31 @@
             </objects>
             <point key="canvasLocation" x="-674" y="134"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="M5V-0B-z2q">
+            <objects>
+                <navigationController id="qJA-mV-NaT" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tCV-1L-yB3" customClass="AdvancedNavigationBar" customModule="UINavigationBarDecorator">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <viewLayoutGuide key="safeArea" id="Z9S-77-P4q"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="contentInsetTop">
+                                <real key="value" value="50"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="contentInsetBottom">
+                                <real key="value" value="50"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vmA-yu-kmY" kind="relationship" relationship="rootViewController" id="udi-BG-IpT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Phg-CX-jdS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="705" y="909"/>
+        </scene>
         <!--Root View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -33,21 +58,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBF-Nd-Yoe">
-                                <rect key="frame" x="152" y="328.5" width="71" height="54"/>
-                                <inset key="contentEdgeInsets" minX="18" minY="18" maxX="18" maxY="18"/>
-                                <state key="normal" title="Push"/>
-                                <connections>
-                                    <segue destination="fQI-ab-Rma" kind="show" id="hEw-WL-fUj"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="yCS-GS-bgK">
+                                <rect key="frame" x="39.5" y="258.5" width="296" height="194"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBF-Nd-Yoe">
+                                        <rect key="frame" x="0.0" y="0.0" width="296" height="54"/>
+                                        <inset key="contentEdgeInsets" minX="18" minY="18" maxX="18" maxY="18"/>
+                                        <state key="normal" title="Push to Second"/>
+                                        <connections>
+                                            <segue destination="fQI-ab-Rma" kind="show" id="hEw-WL-fUj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8E-LU-OAD">
+                                        <rect key="frame" x="0.0" y="70" width="296" height="54"/>
+                                        <inset key="contentEdgeInsets" minX="18" minY="18" maxX="18" maxY="18"/>
+                                        <state key="normal" title="Present with AdvancedNavigationBar"/>
+                                        <connections>
+                                            <segue destination="qJA-mV-NaT" kind="presentation" id="ZH2-pH-eN3"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tw6-f9-89c">
+                                        <rect key="frame" x="0.0" y="140" width="296" height="54"/>
+                                        <inset key="contentEdgeInsets" minX="18" minY="18" maxX="18" maxY="18"/>
+                                        <state key="normal" title="Present with PageSheetNavigationBar"/>
+                                        <connections>
+                                            <segue destination="hpM-jw-qyD" kind="presentation" id="fUm-H3-SzE"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="cDh-Sc-qIB"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="zBF-Nd-Yoe" firstAttribute="centerY" secondItem="cDh-Sc-qIB" secondAttribute="centerY" id="axX-42-nmy"/>
-                            <constraint firstItem="zBF-Nd-Yoe" firstAttribute="centerX" secondItem="cDh-Sc-qIB" secondAttribute="centerX" id="buc-2D-cJr"/>
+                            <constraint firstItem="yCS-GS-bgK" firstAttribute="centerX" secondItem="cDh-Sc-qIB" secondAttribute="centerX" id="96U-kZ-wPm"/>
+                            <constraint firstItem="yCS-GS-bgK" firstAttribute="centerY" secondItem="cDh-Sc-qIB" secondAttribute="centerY" id="HQZ-uD-YoG"/>
+                            <constraint firstItem="yCS-GS-bgK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cDh-Sc-qIB" secondAttribute="leading" constant="16" id="lD9-Mf-d60"/>
+                            <constraint firstItem="cDh-Sc-qIB" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yCS-GS-bgK" secondAttribute="trailing" constant="16" id="yZT-Nm-Is3"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="cDh-Sc-qIB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Erw-SZ-zZ6"/>
                 </viewController>
@@ -62,14 +110,63 @@
                     <view key="view" contentMode="scaleToFill" id="mcK-tv-xdW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="65S-7u-Q2l"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" id="5Pe-hW-XGK"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Yu-ME-Pmx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="906" y="134"/>
+        </scene>
+        <!--Advanced Navigation Bar View Controller-->
+        <scene sceneID="Y0w-wi-zGe">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="vmA-yu-kmY" customClass="AdvancedNavigationBarViewController" customModule="UINavigationBarDecorator_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bTh-DD-AO1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="VOp-KH-NLg"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="0mh-54-GCQ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y3F-Kw-NEn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="705" y="1695"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nYC-wd-asN">
+            <objects>
+                <navigationController id="hpM-jw-qyD" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YhF-pj-hdR" customClass="PageSheetNavigationBar" customModule="UINavigationBarDecorator">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <viewLayoutGuide key="safeArea" id="oD8-Mt-bJl"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="L06-5b-73i" kind="relationship" relationship="rootViewController" id="daj-Kh-gbL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bbo-fB-21h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-391" y="909"/>
+        </scene>
+        <!--Page Sheet Navigation Bar View Controller-->
+        <scene sceneID="qRp-Vd-dAi">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="L06-5b-73i" customClass="PageSheetNavigationBarViewController" customModule="UINavigationBarDecorator_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aHO-Px-1fl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="mW5-gE-YMd"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LBW-AI-GCV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U5j-Oq-mxR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-391" y="1694"/>
         </scene>
     </scenes>
 </document>
