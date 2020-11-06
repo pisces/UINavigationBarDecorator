@@ -10,6 +10,7 @@
 Compatible UINavigationBarAppearance for all iOS versions
 
 ## Features
+- Provide AdvancedNavigationBar is able to change size
 - Easy to apply navigation bar style for all iOS versions
 - Apply navigation bar style as one interface for all iOS versions
 - Provide compatible UINavigationBarAppearance for versions below iOS 13
@@ -17,6 +18,8 @@ Compatible UINavigationBarAppearance for all iOS versions
 - Automatically apply appearance to navigation bar through the view controller life cycle
 
 ## Demo
+<img src="Images/RPReplay-Final1604664543.gif"/>
+
 ### Normal title on iOS 10.x
 <p valign="top">
 <img src="Images/ScreenShot01.png" width="400"/>
@@ -34,6 +37,29 @@ Compatible UINavigationBarAppearance for all iOS versions
 <img src="Images/ScreenShot05.png" width="400"/>
 <img src="Images/ScreenShot06.png" width="400"/>
 </p>
+
+## Custom NavigationBar
+
+### AdvancedNavigationBar with Interface Builder
+<p valign="top">
+<img src="Images/ScreenShot07.png" width="400"/>
+<img src="Images/ScreenShot08.png" width="400"/>
+</p>
+
+### PageSheetNavigationBar with Interface Builder
+<p valign="top">
+<img src="Images/ScreenShot09.png" width="400"/>
+<img src="Images/ScreenShot10.png" width="400"/>
+</p>
+
+### Using Programacally
+```swift
+let navigationController = UINavigationController(
+    rootViewController: #{YourVC}, 
+    navigationBarClass: PageSheetNavigationBar.self)
+```
+
+## UINavigationBarDecorator
 
 ### Configure UINavigationBarDecorator
 ```swift
@@ -103,7 +129,6 @@ import UINavigationBarDecorator
 final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationBarDecorator = .init(standard: .orange, compact: .orange, scrollEdge: .orange)
     }
 }
@@ -125,12 +150,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // SampleNavigationController.swift
 final class SampleNavigationController: UINavigationController {
     override var childForStatusBarStyle: UIViewController? {
-        return topViewController
+        topViewController
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         delegate = self
     }
 }
@@ -151,7 +175,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-iOS SDK 9.0 equal or higher
+iOS SDK 10.0 equal or higher
 
 ## Installation
 
@@ -176,7 +200,7 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/UINavigationBarDecorator" ~> 1.0.2
+github "pisces/UINavigationBarDecorator" ~> 1.0.3
 ```
 
 Run `carthage update` to build the framework and drag the built `UINavigationBarDecorator.framework` into your Xcode project.
