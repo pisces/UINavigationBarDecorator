@@ -120,7 +120,7 @@ open class AdvancedNavigationBar: UINavigationBar {
     
     // MARK: - Functions
     
-    func initProperties() { }
+    open func initProperties() { }
 }
 
 extension AdvancedNavigationBar {
