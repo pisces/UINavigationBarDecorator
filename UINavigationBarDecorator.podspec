@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UINavigationBarDecorator'
-  s.version          = '1.0.4'
+  s.version          = '1.0.5'
   s.summary          = 'Compatible UINavigationBarAppearance'
   s.description      = 'Compatible UINavigationBarAppearance for all iOS versions'
   s.homepage         = 'https://github.com/pisces/UINavigationBarDecorator'
