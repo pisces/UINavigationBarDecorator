@@ -72,7 +72,7 @@ open class PageSheetNavigationBar: AdvancedNavigationBar {
     private lazy var thumbLayer: CALayer = {
         let layer = CALayer()
         layer.cornerRadius = 2
-        layer.backgroundColor = UIColor(displayP3Red: 166 / 255, green: 166 / 255, blue: 128 / 255, alpha: 0.18).cgColor
+        layer.backgroundColor = UIColor(red: 166 / 255, green: 166 / 255, blue: 128 / 255, alpha: 0.18).cgColor
         layer.frame.size = .init(width: 44, height: 4)
         return layer
     }()

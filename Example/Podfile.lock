@@ -1,5 +1,5 @@
 PODS:
-  - UINavigationBarDecorator (1.0.3)
+  - UINavigationBarDecorator (1.0.5)
 
 DEPENDENCIES:
   - UINavigationBarDecorator (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  UINavigationBarDecorator: a67deb06462d44648042442c88c684bf89bd1ca9
+  UINavigationBarDecorator: a09aaf81c7aec1a2293b81e62cbfd654e6aad24b
 
 PODFILE CHECKSUM: e69d0e1d31440c59ccc6e4a46a16a38f45d97e83
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1
