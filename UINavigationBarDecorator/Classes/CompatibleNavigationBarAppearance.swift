@@ -46,6 +46,7 @@ open class CompatibleNavigationBarAppearance {
     // MARK: - Open Properties
     
     open var isHidden = false
+    open var isTranslucent = false
     open var backgroundImageContentMode: UIView.ContentMode = .scaleToFill
     open var titlePositionAdjustment: UIOffset = .zero
     open var tintColor: UIColor = .systemBlue
@@ -92,14 +93,13 @@ open class CompatibleNavigationBarAppearance {
     // MARK: - Internal Methods
     
     func apply(to navigationBar: UINavigationBar) {
+        navigationBar.isTranslucent = isTranslucent
         navigationBar.tintColor = tintColor
-        
-        setIsTranslucent(to: navigationBar)
         
         if #available(iOS 13.0, *) {
             return
         }
-
+        
         navigationBar.barTintColor = backgroundColor
         navigationBar.backIndicatorImage = backIndicatorImage
         navigationBar.backIndicatorTransitionMaskImage = backIndicatorTransitionMaskImage
@@ -156,19 +156,6 @@ open class CompatibleNavigationBarAppearance {
             ()
         }
         return appearance
-    }
-    
-    // MARK: - Private Methods
-    
-    private func setIsTranslucent(to navigationBar: UINavigationBar) {
-        switch backgroundMode {
-        case .default,
-             .none,
-             .transparent:
-            navigationBar.isTranslucent = true
-        case .opaque:
-            navigationBar.isTranslucent = false
-        }
     }
 }
 
