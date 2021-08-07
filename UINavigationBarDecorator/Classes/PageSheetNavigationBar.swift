@@ -34,7 +34,21 @@ import UIKit
 
 open class PageSheetNavigationBar: AdvancedNavigationBar {
     
-    // MARK: - Variables (Inspectables)
+    // MARK: - Lifecycle
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        thumbLayer.frame.origin = .init(
+            x: (bounds.width - thumbLayer.bounds.width) / 2,
+            y: (contentInsets.top - thumbLayer.bounds.height) / 2)
+    }
+    
+    open override func initProperties() {
+        layer.addSublayer(thumbLayer)
+        contentInsetTop = 24
+    }
+    
+    // MARK: - Public
     
     @IBInspectable
     public var thumbHeight: CGFloat {
@@ -67,7 +81,7 @@ open class PageSheetNavigationBar: AdvancedNavigationBar {
         }
     }
     
-    // MARK: - Variables
+    // MARK: - Private
     
     private lazy var thumbLayer: CALayer = {
         let layer = CALayer()
@@ -76,18 +90,4 @@ open class PageSheetNavigationBar: AdvancedNavigationBar {
         layer.frame.size = .init(width: 44, height: 4)
         return layer
     }()
-    
-    // MARK: - Overridden: ABCNavigationBar
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        thumbLayer.frame.origin = .init(
-            x: (bounds.width - thumbLayer.bounds.width) / 2,
-            y: (contentInsets.top - thumbLayer.bounds.height) / 2)
-    }
-    
-    open override func initProperties() {
-        layer.addSublayer(thumbLayer)
-        contentInsetTop = 24
-    }
 }
