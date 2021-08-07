@@ -34,7 +34,36 @@ import UIKit
 
 open class AdvancedNavigationBar: UINavigationBar {
     
-    // MARK: - Variables (Inspectables)
+    // MARK: - Lifecycle
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        initProperties()
+        sizeToFit()
+    }
+    
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initProperties()
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        subviews.forEach {
+            $0.frame = frame(of: $0)
+            $0.sizeToFit()
+        }
+    }
+    
+    open override func sizeThatFits(_ size: CGSize) -> CGSize {
+        .init(width: size.width, height: navigationBarHeight)
+    }
+    
+    // MARK: - Open
+    
+    open func initProperties() { }
+    
+    // MARK: - Public
     
     @IBInspectable
     public var contentInsetLeft: CGFloat {
@@ -76,63 +105,38 @@ open class AdvancedNavigationBar: UINavigationBar {
             setNeedsLayout()
         }
     }
-    
-    // MARK: - Variables (Input)
-    
+    public var barHeight: CGFloat {
+        Const.defaultBarHeight + contentInsets.top + contentInsets.bottom
+    }
+    public var navigationBarHeight: CGFloat {
+        UIApplication.shared.statusBarFrame.height + barHeight
+    }
     public var contentInsets: UIEdgeInsets = .zero {
         didSet {
             setNeedsLayout()
         }
     }
     
-    // MARK: - Variables
+    // MARK: - Private
     
-    public var navigationBarHeight: CGFloat {
-        44 + contentInsets.top + contentInsets.bottom
+    private struct Const {
+        static let defaultBarHeight: CGFloat = 44
+        static let backgroundViewName = "UIBarBackground"
+        static let contentViewName = "UINavigationBarContentView"
     }
-    
-    // MARK: - Constructors
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        initProperties()
-        sizeToFit()
-    }
-    
-    public required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        initProperties()
-    }
-    
-    // MARK: - Overridden: UINavigationBar
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        subviews.forEach {
-            $0.frame = frame(of: $0)
-            $0.sizeToFit()
-        }
-    }
-    
-    open override func sizeThatFits(_ size: CGSize) -> CGSize {
-        .init(width: size.width, height: navigationBarHeight)
-    }
-    
-    // MARK: - Functions
-    
-    open func initProperties() { }
 }
 
 extension AdvancedNavigationBar {
+    
     private func frame(of subview: UIView) -> CGRect {
         let name = NSStringFromClass(subview.classForCoder)
-        if name.contains("UIBarBackground") {
-            return CGRect(x: 0, y: 0, width: bounds.width, height: navigationBarHeight)
+        if name.contains(Const.backgroundViewName) {
+            return CGRect(x: 0, y: -UIApplication.shared.statusBarFrame.height, width: bounds.width, height: navigationBarHeight)
         }
-        if name.contains("UINavigationBarContentView") {
+        if name.contains(Const.contentViewName) {
             return CGRect(
                 x: contentInsets.left,
-                y: (44 - subview.bounds.height) / 2 + contentInsets.top,
+                y: (Const.defaultBarHeight - subview.bounds.height) / 2 + contentInsets.top,
                 width: bounds.width - contentInsets.left - contentInsets.right,
                 height: subview.bounds.height)
         }
